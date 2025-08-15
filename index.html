@@ -1,0 +1,301 @@
+<!--
+STUDENT PORTFOLIO – SINGLE-FILE HTML/CSS (GitHub Pages Ready)
+
+HOW TO USE (5–10 minutes):
+1) Replace ALL-CAPS placeholders (YOUR NAME, ABOUT YOU, EMAIL, GITHUB, LINKEDIN, etc.).
+2) For each certificate, add a card in the Certificates section:
+   - Edit title, provider, date.
+   - Link to the actual certificate (PDF or share URL) using the <a href> in the card.
+   - Optional: replace the placeholder logo (data-URI SVG) with a PNG/JPG link.
+3) Save this file as index.html in a new GitHub repository (public).
+4) Enable GitHub Pages:
+   - GitHub → your repo → Settings → Pages → Build and deployment → Source: “Deploy from a branch”
+   - Branch: main (or master) / Folder: /root → Save.
+   - Your site will appear at https://<USERNAME>.github.io/<REPO>/ in ~1–2 minutes.
+   - (Alternative) Name the repo <USERNAME>.github.io to publish at your root domain.
+5) Submit the live URL before the deadline (18 August 2025).
+
+FREE ASSETS:
+- Logos here are inline SVG placeholders so you don’t need to host images.
+- To add your real certificate image, replace the <img src> with a direct link.
+
+TIP FOR “BEST DESIGNED” REWARD:
+- Keep it clean and readable; strong contrast; consistent spacing; mobile first.
+- Add at least 6–10 certificates with clear links; group by platform; add filters if you later want JS (not required).
+- Include a brief About and Contact; no clutter.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YOUR NAME – Certifications & Portfolio</title>
+  <meta name="description" content="All my online course certifications and projects – MongoDB, Spoken Tutorial, IBM, Learnathon and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1020;
+      --bg-soft: #0f1630;
+      --card: #121a3a;
+      --text: #e9edf7;
+      --muted: #b9c1d9;
+      --primary: #7aa2ff;
+      --accent: #6ef3d6;
+      --ring: rgba(122,162,255,0.35);
+      --shadow: rgba(0,0,0,0.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji','Segoe UI Emoji';
+      background: radial-gradient(1200px 800px at 20% -10%, #1b2a6b44, transparent),
+                  radial-gradient(1000px 700px at 110% 10%, #00ffd544, transparent),
+                  var(--bg);
+      color:var(--text); line-height:1.6;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{opacity:.9; text-decoration:underline}
+    .container{max-width:1100px; margin:0 auto; padding:24px}
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(8px);
+      background:linear-gradient(180deg, rgba(11,16,32,0.9), rgba(11,16,32,0.6));
+      border-bottom:1px solid #1f2a55;
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:700}
+    .logo{width:28px; height:28px; border-radius:8px; background:linear-gradient(135deg, var(--primary), var(--accent)); box-shadow:0 6px 18px var(--ring)}
+    .nav a{color:var(--muted); margin-left:18px; font-weight:600}
+    .nav a:hover{color:var(--text)}
+
+    .hero{display:grid; grid-template-columns:1.3fr 1fr; gap:24px; padding:42px 0}
+    @media (max-width: 900px){ .hero{grid-template-columns:1fr} }
+    .hero-card{
+      background:linear-gradient(180deg, rgba(18,26,58,0.9), rgba(18,26,58,0.7));
+      border:1px solid #213068; border-radius:var(--radius); padding:28px;
+      box-shadow:0 20px 60px var(--shadow);
+    }
+    .title{font-size:clamp(26px, 3vw, 40px); margin:0 0 10px; line-height:1.2}
+    .subtitle{color:var(--muted); margin:0 0 18px}
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px}
+    .btn{display:inline-block; padding:12px 16px; border-radius:12px; font-weight:700; border:1px solid #2a3a78; background:#152056}
+    .btn.primary{background:linear-gradient(135deg, var(--primary), #5b84ff); color:#061028; border:0}
+    .btn:hover{transform:translateY(-1px); box-shadow:0 10px 24px var(--ring)}
+
+    .badge-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px}
+    .badge{background:#0f1630; border:1px solid #26346d; color:var(--muted); padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700}
+
+    section{margin:28px 0}
+    .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px}
+    .section-title{font-size:22px; margin:0}
+    .section-sub{color:var(--muted); font-size:14px}
+
+    .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+    @media (max-width: 1000px){ .grid{grid-template-columns:repeat(2, 1fr)} }
+    @media (max-width: 640px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      background:linear-gradient(180deg, #11183a, #0e1533);
+      border:1px solid #22306b; border-radius:var(--radius); overflow:hidden;
+      box-shadow:0 16px 40px var(--shadow);
+      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .card:hover{transform:translateY(-4px); border-color:#2c3f86; box-shadow:0 20px 60px var(--ring)}
+    .card-body{padding:16px}
+    .row{display:flex; align-items:center; gap:12px}
+    .logo-32{width:32px; height:32px; border-radius:8px; background:linear-gradient(135deg, #4452ff, #6ef3d6)}
+    .kicker{font-size:12px; color:var(--muted); margin:0}
+    .h5{margin:0; font-size:16px}
+    .meta{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px}
+    .meta .pill{font-size:12px; color:#9fb0dd; background:#0c1230; border:1px solid #26346d; padding:4px 8px; border-radius:999px}
+    .card a.card-link{display:inline-block; margin-top:12px; font-weight:700}
+
+    .about{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    @media (max-width: 900px){ .about{grid-template-columns:1fr} }
+    .about .box{background:linear-gradient(180deg, #10183a, #0e1533); border:1px solid #22306b; border-radius:var(--radius); padding:18px}
+
+    footer{margin:28px 0 16px; color:var(--muted); font-size:14px; text-align:center}
+    .socials{display:flex; gap:14px; justify-content:center; margin-top:10px}
+    .socials a{padding:8px 12px; border:1px solid #26346d; background:#0f1630; border-radius:999px; font-weight:700}
+    .socials a:hover{border-color:#2c3f86}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand"><span class="logo" aria-hidden="true"></span> <span>YOUR NAME</span></div>
+      <nav>
+        <a href="#certs">Certificates</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <h1 class="title">Hi, I’m <span style="color:var(--accent)">YOUR NAME</span>.</h1>
+        <p class="subtitle">B.E./B.Tech – Artificial Intelligence & Data Science, <strong>M.A.M. School of Engineering</strong> (Anna University). I’m building projects in web and data, and collecting certifications from <em>MongoDB, Spoken Tutorial, IBM, Learnathon</em> and more.</p>
+        <div class="badge-row">
+          <span class="badge">#HTML</span>
+          <span class="badge">#CSS</span>
+          <span class="badge">#GitHubPages</span>
+          <span class="badge">#MongoDB</span>
+          <span class="badge">#IBM</span>
+          <span class="badge">#SpokenTutorial</span>
+          <span class="badge">#Learnathon</span>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="#certs">View Certificates</a>
+          <a class="btn" href="#contact">Contact Me</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3 style="margin:0 0 8px">Quick Info</h3>
+        <ul style="margin:0; padding-left:18px">
+          <li>Location: Tamil Nadu, India</li>
+          <li>Department: AI & DS</li>
+          <li>Graduation: 2027 (update if different)</li>
+          <li>Interests: Full‑stack dev, Data, Aviation</li>
+        </ul>
+        <p style="color:var(--muted); font-size:14px; margin-top:10px">This site is 100% free to host with GitHub Pages.</p>
+      </div>
+    </section>
+
+    <section id="certs">
+      <div class="section-head">
+        <h2 class="section-title">Certificates</h2>
+        <p class="section-sub">Verified links to all my online course completions</p>
+      </div>
+      <div class="grid">
+        <!-- CERTIFICATE CARD – DUPLICATE THIS BLOCK FOR EACH CERTIFICATE -->
+        <article class="card">
+          <div class="card-body">
+            <div class="row">
+              <span class="logo-32" aria-hidden="true"></span>
+              <div>
+                <p class="kicker">MongoDB University</p>
+                <h3 class="h5">M001: MongoDB Basics</h3>
+              </div>
+            </div>
+            <div class="meta">
+              <span class="pill">Issued: May 2025</span>
+              <span class="pill">ID: ABC-1234</span>
+              <span class="pill">Duration: 6 hrs</span>
+            </div>
+            <a class="card-link" href="https://link-to-your-certificate" target="_blank" rel="noopener">View Certificate →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-body">
+            <div class="row">
+              <span class="logo-32" aria-hidden="true"></span>
+              <div>
+                <p class="kicker">Spoken Tutorial (IIT Bombay)</p>
+                <h3 class="h5">Python 3.4.3</h3>
+              </div>
+            </div>
+            <div class="meta">
+              <span class="pill">Issued: Apr 2025</span>
+              <span class="pill">Score: 90%</span>
+            </div>
+            <a class="card-link" href="https://link-to-your-certificate" target="_blank" rel="noopener">View Certificate →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-body">
+            <div class="row">
+              <span class="logo-32" aria-hidden="true"></span>
+              <div>
+                <p class="kicker">IBM SkillsBuild</p>
+                <h3 class="h5">Introduction to Machine Learning</h3>
+              </div>
+            </div>
+            <div class="meta">
+              <span class="pill">Issued: Jun 2025</span>
+              <span class="pill">Badge: Explorer</span>
+            </div>
+            <a class="card-link" href="https://link-to-your-certificate" target="_blank" rel="noopener">View Certificate →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-body">
+            <div class="row">
+              <span class="logo-32" aria-hidden="true"></span>
+              <div>
+                <p class="kicker">Learnathon</p>
+                <h3 class="h5">Full‑Stack Web Basics</h3>
+              </div>
+            </div>
+            <div class="meta">
+              <span class="pill">Issued: Mar 2025</span>
+              <span class="pill">Platform: GUVI</span>
+            </div>
+            <a class="card-link" href="https://link-to-your-certificate" target="_blank" rel="noopener">View Certificate →</a>
+          </div>
+        </article>
+
+        <!-- Add more cards as needed… -->
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-head">
+        <h2 class="section-title">About Me</h2>
+      </div>
+      <div class="about">
+        <div class="box">
+          <p>I’m <strong>YOUR NAME</strong>, an AI & DS undergraduate who loves building clean, accessible web pages and learning new technologies. This website collects my certifications and shows my progress.</p>
+          <p>Currently exploring: data visualization, cloud basics, and aviation tech.</p>
+        </div>
+        <div class="box">
+          <h3 style="margin-top:0">Highlights</h3>
+          <ul>
+            <li>Completed 10+ online courses and challenges in 2025.</li>
+            <li>Built mini‑projects: Internal Marks Predictor, Portfolio site, etc.</li>
+            <li>Comfortable with HTML, CSS, Git, GitHub Pages.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-sub">Let’s connect</p>
+      </div>
+      <div class="about">
+        <div class="box">
+          <p>Email: <a href="mailto:YOUR.EMAIL@example.com">YOUR.EMAIL@example.com</a></p>
+          <p>GitHub: <a href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener">github.com/YOUR-USERNAME</a></p>
+          <p>LinkedIn: <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">linkedin.com/in/YOUR-LINKEDIN</a></p>
+        </div>
+        <div class="box">
+          <p>Resume (PDF): <a href="https://link-to-your-resume.pdf" target="_blank" rel="noopener">Download</a></p>
+          <div class="socials">
+            <a href="#">Twitter/X</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© <span id="year"></span> YOUR NAME. Built with HTML & CSS. Hosted free on GitHub Pages.</p>
+    </footer>
+  </main>
+
+  <script>
+    // Set dynamic year without adding a JS dependency. Allowed for convenience.
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
